@@ -28,7 +28,6 @@ public class CountryCodeStorageService {
     }
 
     public String getCountryNameByCode(int code) {
-        log.info("Пришел код " + code);
         Country country = this.countriesByCode.get(code);
         if (country == null) {
             return "Unknown";
