@@ -39,6 +39,10 @@ public class CountryParserWiki implements CountryParser {
                         .replace("assigned ", "")
                         .replace(" ", "");
 
+                Element elementCountry = e.get(0);
+
+                String country = elementCountry.text();
+
                 //На википедии в таблице под одной страной может быть намного больше кодов.
                 String[] splitPrefixes = prefixString.split(",");
                 for (String prefix : splitPrefixes) {
@@ -46,10 +50,6 @@ public class CountryParserWiki implements CountryParser {
                     if (prefixNum == null) {
                         continue;
                     }
-
-                    Element elementCountry = e.get(0);
-
-                    String country = elementCountry.text();
 
                     countriesTmp.put(prefixNum, new Country(prefixNum, country));
                 }
