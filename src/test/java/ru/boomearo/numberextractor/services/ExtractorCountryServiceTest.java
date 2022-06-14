@@ -29,8 +29,8 @@ public class ExtractorCountryServiceTest {
 
         verify(countryCodeStorageService).getCountryNameByCode(371);
 
-        ExtractorCountryResponse expected = new ExtractorCountryResponse("Latvia", "37112345678");
+        ExtractorCountryResponse expected = new ExtractorCountryResponse(new ExtractorCountryResponse.CountryData("Latvia", "+37112345678", 371));
 
-        assertEquals(response, expected);
+        assertEquals(expected, response);
     }
 }

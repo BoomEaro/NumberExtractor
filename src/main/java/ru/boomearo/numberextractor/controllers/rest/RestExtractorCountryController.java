@@ -24,7 +24,7 @@ public class RestExtractorCountryController {
         if (phoneNumber == null) {
             return null;
         }
-        return service.extractCountry(new ExtractorCountryRequest(phoneNumber));
+        return this.service.extractCountry(new ExtractorCountryRequest(phoneNumber));
     }
 
 }

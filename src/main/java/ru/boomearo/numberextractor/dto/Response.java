@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 public abstract class Response {
 
-    private List<ErrorData> errors;
+    protected List<ErrorData> errors;
 
 }

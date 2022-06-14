@@ -35,6 +35,7 @@ public class CountryCodeStorageService {
         return country.getName();
     }
 
+    //Надеюсь страницу вики никто не изменит..)
     private static ConcurrentMap<Integer, Country> parseCodes() {
         ConcurrentMap<Integer, Country> countriesTmp = new ConcurrentHashMap<>();
         try {

@@ -10,8 +10,6 @@ import ru.boomearo.numberextractor.dto.ErrorData;
 import ru.boomearo.numberextractor.dto.ExtractorCountryRequest;
 import ru.boomearo.numberextractor.dto.ExtractorCountryResponse;
 
-import java.util.List;
-
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -35,12 +33,12 @@ public class ExtractorCountryService {
             prefix = number.getCountryCode();
         }
         catch (NumberParseException e) {
-            return new ExtractorCountryResponse(List.of(new ErrorData(e.getMessage())));
+            return new ExtractorCountryResponse(new ErrorData(e.getMessage()));
         }
 
         String country = this.phonePrefixStorageService.getCountryNameByCode(prefix);
 
-        return new ExtractorCountryResponse(country, request.getPhoneNumber());
+        return new ExtractorCountryResponse(new ExtractorCountryResponse.CountryData(country, phoneNumberToParse, prefix));
     }
 
 
