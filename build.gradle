@@ -32,6 +32,5 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
-    implementation group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.9.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
 }

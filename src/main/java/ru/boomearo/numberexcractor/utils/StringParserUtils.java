@@ -1,6 +1,6 @@
 package ru.boomearo.numberexcractor.utils;
 
-public class StringUtils {
+public class StringParserUtils {
 
     public static Integer parseIntegerSafe(String numberString) {
         if (numberString == null) {
