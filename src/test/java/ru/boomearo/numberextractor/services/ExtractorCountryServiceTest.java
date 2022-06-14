@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.boomearo.numberextractor.dto.ErrorData;
 import ru.boomearo.numberextractor.dto.ExtractorCountryRequest;
 import ru.boomearo.numberextractor.dto.ExtractorCountryResponse;
 
@@ -30,6 +31,16 @@ public class ExtractorCountryServiceTest {
         verify(countryCodeStorageService).getCountryNameByCode(371);
 
         ExtractorCountryResponse expected = new ExtractorCountryResponse(new ExtractorCountryResponse.CountryData("Latvia", "+37112345678", 371));
+
+        assertEquals(expected, response);
+    }
+
+    @Test
+    public void shouldReturnError() {
+        ExtractorCountryResponse response =
+                this.countryService.extractCountry(new ExtractorCountryRequest("WrongName"));
+
+        ExtractorCountryResponse expected = new ExtractorCountryResponse(new ErrorData("The string supplied did not seem to be a phone number."));
 
         assertEquals(expected, response);
     }
