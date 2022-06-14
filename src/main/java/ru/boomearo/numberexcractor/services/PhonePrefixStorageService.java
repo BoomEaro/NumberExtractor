@@ -1,14 +1,31 @@
 package ru.boomearo.numberexcractor.services;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @Service
 public class PhonePrefixStorageService {
 
-    public String getCountryNameByPrefix(int prefix) {
-        //TODO Реализовать получение и загрузку всех префиксов
+    private ConcurrentMap<Integer, Country> countriesByPrefix = new ConcurrentHashMap<>();
 
-        return "STAB";
+    public String getCountryNameByPrefix(int prefix) {
+        Country country = this.countriesByPrefix.get(prefix);
+        if (country == null) {
+            return "Unknown";
+        }
+        return country.getName();
     }
 
+    @Data
+    @AllArgsConstructor
+    public static class Country {
+
+        private final int prefix;
+        private final String name;
+
+    }
 }
