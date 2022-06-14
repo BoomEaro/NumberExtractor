@@ -1,4 +1,4 @@
-package ru.boomearo.numberexcractor.services;
+package ru.boomearo.numberextractor.services;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -6,20 +6,20 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.boomearo.numberexcractor.dto.ErrorData;
-import ru.boomearo.numberexcractor.dto.ExtractorCountryRequest;
-import ru.boomearo.numberexcractor.dto.ExtractorCountryResponse;
+import ru.boomearo.numberextractor.dto.ErrorData;
+import ru.boomearo.numberextractor.dto.ExtractorCountryRequest;
+import ru.boomearo.numberextractor.dto.ExtractorCountryResponse;
 
 import java.util.List;
 
 @Slf4j
 @Service
 @AllArgsConstructor
-public class CountryExtractorService {
+public class ExtractorCountryService {
 
-    private final PhonePrefixStorageService phonePrefixStorageService;
+    private final CountryCodeStorageService phonePrefixStorageService;
 
-    public ExtractorCountryResponse extractorCountry(ExtractorCountryRequest request) {
+    public ExtractorCountryResponse extractCountry(ExtractorCountryRequest request) {
         if (request == null) {
             throw new IllegalArgumentException("Запрос не должен быть нулевым!");
         }
@@ -38,7 +38,7 @@ public class CountryExtractorService {
             return new ExtractorCountryResponse(List.of(new ErrorData(e.getMessage())));
         }
 
-        String country = this.phonePrefixStorageService.getCountryNameByPrefix(prefix);
+        String country = this.phonePrefixStorageService.getCountryNameByCode(prefix);
 
         return new ExtractorCountryResponse(country, request.getPhoneNumber());
     }

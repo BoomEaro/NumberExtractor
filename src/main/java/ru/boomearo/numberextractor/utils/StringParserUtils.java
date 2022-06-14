@@ -1,4 +1,4 @@
-package ru.boomearo.numberexcractor.utils;
+package ru.boomearo.numberextractor.utils;
 
 public class StringParserUtils {
 

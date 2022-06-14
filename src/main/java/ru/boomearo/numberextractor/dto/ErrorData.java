@@ -1,4 +1,4 @@
-package ru.boomearo.numberexcractor.dto;
+package ru.boomearo.numberextractor.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

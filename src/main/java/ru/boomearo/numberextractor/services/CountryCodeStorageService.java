@@ -1,4 +1,4 @@
-package ru.boomearo.numberexcractor.services;
+package ru.boomearo.numberextractor.services;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,35 +8,35 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
-import ru.boomearo.numberexcractor.utils.StringParserUtils;
+import ru.boomearo.numberextractor.utils.StringParserUtils;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 @Slf4j
 @Service
-public class PhonePrefixStorageService {
+public class CountryCodeStorageService {
 
-    private final ConcurrentMap<Integer, Country> countriesByPrefix;
+    private final ConcurrentMap<Integer, Country> countriesByCode;
 
     private static final String PARSE_URL = "https://en.wikipedia.org/wiki/List_of_country_calling_codes";
 
-    public PhonePrefixStorageService() {
-        this.countriesByPrefix = parsePrefixes();
+    public CountryCodeStorageService() {
+        this.countriesByCode = parseCodes();
 
-        log.info("Загружено  " + this.countriesByPrefix.size() + " международных кодов.");
+        log.info("Загружено " + this.countriesByCode.size() + " международных кодов.");
     }
 
-    public String getCountryNameByPrefix(int prefix) {
-        log.info("Пришел код " + prefix);
-        Country country = this.countriesByPrefix.get(prefix);
+    public String getCountryNameByCode(int code) {
+        log.info("Пришел код " + code);
+        Country country = this.countriesByCode.get(code);
         if (country == null) {
             return "Unknown";
         }
         return country.getName();
     }
 
-    private static ConcurrentMap<Integer, Country> parsePrefixes() {
+    private static ConcurrentMap<Integer, Country> parseCodes() {
         ConcurrentMap<Integer, Country> countriesTmp = new ConcurrentHashMap<>();
         try {
             Document doc = Jsoup.connect(PARSE_URL).get();

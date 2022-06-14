@@ -1,22 +1,22 @@
-package ru.boomearo.numberexcractor.controllers.rest;
+package ru.boomearo.numberextractor.controllers.rest;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.boomearo.numberexcractor.dto.ExtractorCountryRequest;
-import ru.boomearo.numberexcractor.dto.ExtractorCountryResponse;
-import ru.boomearo.numberexcractor.services.CountryExtractorService;
+import ru.boomearo.numberextractor.dto.ExtractorCountryRequest;
+import ru.boomearo.numberextractor.dto.ExtractorCountryResponse;
+import ru.boomearo.numberextractor.services.ExtractorCountryService;
 
 import java.util.Map;
 
 @RequestMapping("/api/country")
 @RestController()
 @AllArgsConstructor
-public class RestNumberController {
+public class RestExtractorCountryController {
 
-    private final CountryExtractorService service;
+    private final ExtractorCountryService service;
 
     @GetMapping
     public ExtractorCountryResponse extractCountryByNumber(@RequestParam Map<String, String> params) {
@@ -24,7 +24,7 @@ public class RestNumberController {
         if (phoneNumber == null) {
             return null;
         }
-        return service.extractorCountry(new ExtractorCountryRequest(phoneNumber));
+        return service.extractCountry(new ExtractorCountryRequest(phoneNumber));
     }
 
 }

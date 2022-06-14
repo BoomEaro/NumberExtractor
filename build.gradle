@@ -31,8 +31,13 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.15.1'
     implementation group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '8.12.49'
+}
+
+test {
+    useJUnitPlatform()
 }
