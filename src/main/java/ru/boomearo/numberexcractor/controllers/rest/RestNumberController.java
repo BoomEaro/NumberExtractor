@@ -21,7 +21,6 @@ public class RestNumberController {
     @GetMapping
     public ExtractorCountryResponse extractCountryByNumber(@RequestParam Map<String, String> params) {
         String phoneNumber = params.get("phone");
-        //TODO Не знаю пока что тут возвращать
         if (phoneNumber == null) {
             return null;
         }

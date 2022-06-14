@@ -24,10 +24,11 @@ public class PhonePrefixStorageService {
     public PhonePrefixStorageService() {
         this.countriesByPrefix = parsePrefixes();
 
-        log.info("Найдено " + this.countriesByPrefix.size() + " международных кодов.");
+        log.info("Загружено  " + this.countriesByPrefix.size() + " международных кодов.");
     }
 
     public String getCountryNameByPrefix(int prefix) {
+        log.info("Пришел код " + prefix);
         Country country = this.countriesByPrefix.get(prefix);
         if (country == null) {
             return "Unknown";

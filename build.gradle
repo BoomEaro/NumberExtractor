@@ -34,4 +34,5 @@ dependencies {
     providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.15.1'
+    implementation group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '8.12.49'
 }

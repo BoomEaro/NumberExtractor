@@ -1,19 +1,22 @@
 package ru.boomearo.numberexcractor.services;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.boomearo.numberexcractor.dto.ErrorData;
 import ru.boomearo.numberexcractor.dto.ExtractorCountryRequest;
 import ru.boomearo.numberexcractor.dto.ExtractorCountryResponse;
-import ru.boomearo.numberexcractor.utils.StringParserUtils;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class CountryExtractorService {
 
-    private final PhoneValidationService phoneValidationService;
     private final PhonePrefixStorageService phonePrefixStorageService;
 
     public ExtractorCountryResponse extractorCountry(ExtractorCountryRequest request) {
@@ -21,16 +24,21 @@ public class CountryExtractorService {
             throw new IllegalArgumentException("Запрос не должен быть нулевым!");
         }
 
-        String phoneNumber = request.getPhoneNumber();
-        String validation = this.phoneValidationService.validateNumber(phoneNumber);
-        if (validation != null) {
-            return new ExtractorCountryResponse(List.of(new ErrorData(validation)));
+        String phoneNumberToParse = "+" + request.getPhoneNumber();
+
+        //С помощью магии, библиотека умеет определять код страны и еще валидировать номер.
+        int prefix;
+        try {
+            Phonenumber.PhoneNumber number = PhoneNumberUtil.getInstance().parse(phoneNumberToParse,
+                    Phonenumber.PhoneNumber.CountryCodeSource.UNSPECIFIED.name());
+
+            prefix = number.getCountryCode();
+        }
+        catch (NumberParseException e) {
+            return new ExtractorCountryResponse(List.of(new ErrorData(e.getMessage())));
         }
 
-        //8 - длина номера абонента. Цифры перед - международный номер
-        String phonePrefix = phoneNumber.substring(0, phoneNumber.length() - 8);
-
-        String country = this.phonePrefixStorageService.getCountryNameByPrefix(StringParserUtils.parseIntegerSafe(phonePrefix));
+        String country = this.phonePrefixStorageService.getCountryNameByPrefix(prefix);
 
         return new ExtractorCountryResponse(country, request.getPhoneNumber());
     }
