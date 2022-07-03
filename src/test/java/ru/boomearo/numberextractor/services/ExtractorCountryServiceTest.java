@@ -26,7 +26,7 @@ public class ExtractorCountryServiceTest {
     private ExtractorCountryService countryService;
 
     @Test
-    public void shouldReturnCorrectCountryName() throws Exception {
+    public void shouldReturnCorrectCountryName() {
         when(countryCodeStorageService.getCountryNameByCode(371)).thenReturn("Latvia");
         when(phonePrefixParser.parsePhonePrefix("37112345678")).thenReturn(371);
 
