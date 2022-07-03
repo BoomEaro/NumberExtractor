@@ -5,7 +5,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
-import ru.boomearo.numberextractor.utils.StringParserUtils;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -46,11 +45,7 @@ public class CountryParserWiki implements CountryParser {
             //На википедии в таблице под одной страной может быть намного больше кодов.
             String[] splitPrefixes = prefixString.split(",");
             for (String prefix : splitPrefixes) {
-                Integer prefixNum = StringParserUtils.parseIntegerSafe(prefix);
-                if (prefixNum == null) {
-                    continue;
-                }
-
+                int prefixNum = Integer.parseInt(prefix);
                 countriesTmp.put(prefixNum, new Country(prefixNum, country));
             }
         }
