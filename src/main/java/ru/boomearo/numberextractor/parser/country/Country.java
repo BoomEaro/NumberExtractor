@@ -1,4 +1,4 @@
-package ru.boomearo.numberextractor.parser;
+package ru.boomearo.numberextractor.parser.country;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -2,20 +2,26 @@ package ru.boomearo.numberextractor.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.boomearo.numberextractor.parser.Country;
-import ru.boomearo.numberextractor.parser.CountryParser;
+import ru.boomearo.numberextractor.parser.country.Country;
+import ru.boomearo.numberextractor.parser.country.CountryParser;
+
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 @Slf4j
 @Service
 public class CountryCodeStorageService {
 
-    private final ConcurrentMap<Integer, Country> countriesByCode;
+    private ConcurrentMap<Integer, Country> countriesByCode = new ConcurrentHashMap<>();
 
     public CountryCodeStorageService(CountryParser parser) {
-        this.countriesByCode = parser.parseCountry();
-
-        log.info("Загружено " + this.countriesByCode.size() + " международных кодов.");
+        try {
+            this.countriesByCode = parser.parseCountry();
+            log.info("Загружено " + this.countriesByCode.size() + " международных кодов.");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getCountryNameByCode(int code) {
