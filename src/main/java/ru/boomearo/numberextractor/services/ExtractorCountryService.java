@@ -22,6 +22,11 @@ public class ExtractorCountryService {
             throw new IllegalArgumentException("Запрос не должен быть нулевым!");
         }
 
+        String phoneNumber = request.getPhoneNumber();
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
+            return new ExtractorCountryResponse(new ErrorData("Номер телефона не может быть пустым или нулевым!"));
+        }
+
         String phoneNumberToParse = "+" + request.getPhoneNumber();
 
         //С помощью магии, библиотека умеет определять код страны и еще валидировать номер.

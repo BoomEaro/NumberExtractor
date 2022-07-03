@@ -9,8 +9,6 @@ import ru.boomearo.numberextractor.dto.ExtractorCountryRequest;
 import ru.boomearo.numberextractor.dto.ExtractorCountryResponse;
 import ru.boomearo.numberextractor.services.ExtractorCountryService;
 
-import java.util.Map;
-
 @RequestMapping("/api/country")
 @RestController()
 @AllArgsConstructor
@@ -19,11 +17,7 @@ public class RestExtractorCountryController {
     private final ExtractorCountryService service;
 
     @GetMapping
-    public ExtractorCountryResponse extractCountryByNumber(@RequestParam Map<String, String> params) {
-        String phoneNumber = params.get("phone");
-        if (phoneNumber == null) {
-            return null;
-        }
+    public ExtractorCountryResponse extractCountryByNumber(@RequestParam(name = "phone") String phoneNumber) {
         return this.service.extractCountry(new ExtractorCountryRequest(phoneNumber));
     }
 
